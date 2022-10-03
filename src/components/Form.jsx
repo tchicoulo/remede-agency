@@ -19,7 +19,7 @@ const Form = () => {
       </div>
 
       <NavLink to="./user.html">
-        <Button class={"sign-in-button"} name={"Sign-In"} />
+        <Button className={"sign-in-button"} name={"Sign-In"} />
       </NavLink>
     </form>
   );

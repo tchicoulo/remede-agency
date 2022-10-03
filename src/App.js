@@ -13,7 +13,7 @@ const App = () => {
         <Route path="*" element={<Error />} />
         <Route path="/error" element={<Error />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/profile" elemen={<Profile />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </BrowserRouter>
   );

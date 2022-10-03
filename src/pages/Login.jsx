@@ -5,7 +5,7 @@ import Form from "../components/Form";
 
 const Login = () => {
   return (
-    <div className="login">
+    <div>
       <Header />
       <main className="main bg-dark">
         <section className="sign-in-content">

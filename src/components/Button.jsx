@@ -1,11 +1,7 @@
 import React from "react";
 
 const Button = (props) => {
-  return (
-    <div>
-      <button className={props.class}>{props.name}</button>
-    </div>
-  );
+  return <button className={props.className}>{props.name}</button>;
 };
 
 export default Button;
