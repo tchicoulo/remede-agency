@@ -1,50 +1,66 @@
 import React from "react";
-import Button from "../components/Button";
 import { useRef } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../features/users.slice";
 
 const Form = () => {
+  let navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const emailInput = useRef();
   const passwordInput = useRef();
 
-  const handleLogin = () => {
-    // e.preventDefault();
-    console.log("youhou");
+  const handleLogin = (e) => {
+    e.preventDefault();
 
-    // axios
-    //   .post("http://localhost:3001/api/v1/user/login", {
-    //     email: emailInput,
-    //     password: passwordInput,
-    //   })
+    const headers = { "Content-Type": "application/json" };
 
-    //   .then((res) => {
-    //     console.log("ça marche");
-    //     console.log(res);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+    const data = {
+      email: emailInput.current.value,
+      password: passwordInput.current.value,
+    };
+
+    axios
+      .post("http://localhost:3001/api/v1/user/login", data, {
+        headers: headers,
+      })
+
+      .then((res) => {
+        console.log(res.data.body.token);
+        navigate("/profile");
+
+        dispatch(loginUser([res.data.email, res.data.body.token]));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
-    <form>
+    <form
+      onSubmit={(e) => {
+        handleLogin(e);
+      }}
+    >
       <div className="input-wrapper">
         <label>Email</label>
         <input type="text" id="username" ref={emailInput} />
       </div>
       <div className="input-wrapper">
         <label>Password</label>
-        <input type="password" id="password" />
+        <input type="password" id="password" ref={passwordInput} />
       </div>
       <div className="input-remember">
-        <input type="checkbox" id="remember-me" ref={passwordInput} />
+        <input type="checkbox" id="remember-me" />
         <label>Remember me</label>
       </div>
 
-      <Button
-        className={"sign-in-button"}
-        name={"Sign-In"}
-        onClick={handleLogin}
+      <input
+        type="submit"
+        className={"sign-in-button submit-btn-login"}
+        value="Sign-in"
       />
     </form>
   );

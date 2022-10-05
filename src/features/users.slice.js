@@ -5,12 +5,12 @@ export const usersSlice = createSlice({
   initialState: {
     auth: {
       isLoggedIn: false,
-      accessToken: null,
+      accessToken: "",
       user: {
-        id: null,
-        firstName: null,
-        lastName: null,
-        email: null,
+        id: "",
+        firstName: "",
+        lastName: "",
+        email: "",
       },
     },
   },
@@ -18,13 +18,12 @@ export const usersSlice = createSlice({
     //users/loginUser
     loginUser: (state, action) => {
       state.auth.user.email = action.payload;
-      state.auth.user.password = action.payload;
-      state.auth.isLoggedIn = true;
+      state.auth.accessToken = action.payload[1];
+      state.auth.isLoggedIn = !state.auth.isLoggedIn;
     },
     // users/logoutUser
     logoutUser: (state, action) => {
       state = this.initialState;
-      return state;
     },
 
     //users/editUser
