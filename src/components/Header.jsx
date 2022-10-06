@@ -1,7 +1,12 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { logoutUser } from "../features/users.slice";
 
 const Header = () => {
+  let isConnected = useSelector((state) => state.users.auth.isLoggedIn);
+  const dispatch = useDispatch();
+
   return (
     <nav className="main-nav">
       <NavLink className="main-nav-logo" to="/">
@@ -13,19 +18,23 @@ const Header = () => {
         <h1 className="sr-only">Argent Bank</h1>
       </NavLink>
       <div>
-        <NavLink className="main-nav-item" to="/login">
-          <i className="fa fa-user-circle"></i>
-          Sign In
-        </NavLink>
+        {isConnected ? (
+          <NavLink
+            className="main-nav-item"
+            onClick={() => dispatch(logoutUser())}
+            to="/"
+          >
+            Sign Out
+          </NavLink>
+        ) : (
+          <NavLink className="main-nav-item" to="/login">
+            <i className="fa fa-user-circle"></i>
+            Sign In
+          </NavLink>
+        )}
       </div>
     </nav>
   );
 };
 
 export default Header;
-
-{
-  /* <NavLink to="./user.html">
-  <Button className={"sign-in-button"} name={"Sign-In"} />
-</NavLink>; */
-}
