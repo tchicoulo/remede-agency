@@ -22,6 +22,7 @@ const Form = () => {
       password: passwordInput.current.value,
     };
 
+    //Récupérer firstname lastname dans l'email
     let firstName = data.email.split("@")[0];
     let lastName = data.email.split("@")[1];
     lastName = lastName.split(".")[0];
@@ -35,10 +36,10 @@ const Form = () => {
 
       .then((res) => {
         console.log(res);
-        navigate("/profile");
         dispatch(
           loginUser([res.data.body.token, data.email, firstName, lastName])
         );
+        navigate("/profile");
       })
       .catch((err) => {
         console.log(err);

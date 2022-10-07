@@ -4,8 +4,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../features/users.slice";
 
 const Header = () => {
-  let isConnected = useSelector((state) => state.users.auth.isLoggedIn);
+  let isConnected = useSelector((state) => state.user.auth.isLoggedIn);
   const dispatch = useDispatch();
+  const firstName = useSelector((state) => state.user.firstName);
 
   return (
     <nav className="main-nav">
@@ -19,13 +20,18 @@ const Header = () => {
       </NavLink>
       <div>
         {isConnected ? (
-          <NavLink
-            className="main-nav-item"
-            onClick={() => dispatch(logoutUser())}
-            to="/"
-          >
-            Sign Out
-          </NavLink>
+          <div>
+            <i className="fa fa-user-o" aria-hidden="true"></i>
+            <span className="main-nav-user">{firstName}</span>
+            <NavLink
+              className="main-nav-item"
+              onClick={() => dispatch(logoutUser())}
+              to="/"
+            >
+              <i className="fa fa-sign-out" aria-hidden="true"></i>
+              Sign Out
+            </NavLink>
+          </div>
         ) : (
           <NavLink className="main-nav-item" to="/login">
             <i className="fa fa-user-circle"></i>
