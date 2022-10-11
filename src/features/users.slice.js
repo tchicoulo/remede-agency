@@ -29,7 +29,11 @@ export const usersSlice = createSlice({
     },
 
     //users/editUser
-    editUser: () => {},
+    editUser: (state, action) => {
+      state.firstName = action.payload[0];
+      state.lastName = action.payload[1];
+      return state;
+    },
   },
 });
 
