@@ -35,7 +35,6 @@ const Form = () => {
       })
 
       .then((res) => {
-        console.log(res);
         dispatch(
           loginUser([res.data.body.token, data.email, firstName, lastName])
         );

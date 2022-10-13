@@ -79,13 +79,17 @@ const Profile = () => {
                   onClick={() => {
                     confirmEdit();
                   }}
-                ></button>
+                >
+                  Save
+                </button>
                 <button
                   className="cancel"
                   onClick={() => {
                     cancelEdit();
                   }}
-                ></button>
+                >
+                  Cancel
+                </button>
               </div>
             </div>
           )}
