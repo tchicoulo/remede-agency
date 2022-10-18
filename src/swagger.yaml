@@ -170,7 +170,7 @@ paths:
           description: Transactions not filtered
         "500":
           description: Internal Server Error
-  /user/transaction:
+  /user/transactions/{transactionId}:
     post:
       security:
         - Bearer: []
@@ -179,6 +179,10 @@ paths:
       summary: User transaction API
       description: API for posting a note in a transaction
       parameters:
+        - in: path
+          name: transactionId
+          type: string
+          required: true
         - in: header
           type: string
           name: Authorization
@@ -196,10 +200,67 @@ paths:
         "200":
           description: Note posted successully
         "400":
-          description: Invalid Fields
+          description: Error, note can't be posted
         "500":
           description: Internal Server Error
-
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: User transaction API
+      description: API for modifying a note in a transaction
+      parameters:
+        - in: path
+          name: transactionId
+          type: string
+          required: true
+        - in: header
+          type: string
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+        - in: body
+          name: body
+          description: Modify a note in user transaction attributes
+          required: true
+          schema:
+            $ref: "#/definitions/UserTransaction"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Note modified successully
+        "400":
+          description: Error, note can't be modified
+        "500":
+          description: Internal Server Error
+    delete:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: User transaction API
+      description: API for deleting a note in a transaction
+      parameters:
+        - in: path
+          name: transactionId
+          type: string
+          required: true
+        - in: header
+          type: string
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Note deleted successully
+        "400":
+          description: Error, note can't be deleted
+        "500":
+          description: Internal Server Error
 securityDefinitions:
   Bearer:
     type: apiKey
