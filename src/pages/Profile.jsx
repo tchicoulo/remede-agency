@@ -19,8 +19,6 @@ const Profile = () => {
   const dispatch = useDispatch();
 
   const confirmEdit = () => {
-    console.log(editFirstName.current.value);
-    console.log(editLastName.current.value);
     setEdit(true);
 
     const headers = {
@@ -37,9 +35,13 @@ const Profile = () => {
       .put("http://localhost:3001/api/v1/user/profile", data, {
         headers: headers,
       })
-      .then((res) => {
-        dispatch(editUser([data.firstName, data.lastName]));
-        console.log(res);
+      .then(() => {
+        if (data.firstName.length > 0 && data.lastName.length > 0) {
+          console.log("okok");
+          dispatch(editUser([data.firstName, data.lastName]));
+        } else {
+          alert('Veuillez remplir correctement les champs "Prénom et "Nom"');
+        }
       })
       .catch((err) => console.log(err));
   };
