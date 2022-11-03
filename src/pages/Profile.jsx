@@ -8,6 +8,7 @@ import { useRef } from "react";
 import axios from "axios";
 import EditButton from "../components/EditInput";
 import { editUser } from "../features/users.slice";
+import { getUser } from "../features/users.slice";
 
 const Profile = () => {
   const firstName = useSelector((state) => state.user.firstName);
@@ -17,8 +18,6 @@ const Profile = () => {
   const editFirstName = useRef();
   const editLastName = useRef();
   const dispatch = useDispatch();
-
-  console.log(accessToken);
 
   const getUserProfile = () => {
     const headers = {
@@ -32,7 +31,9 @@ const Profile = () => {
           headers: headers,
         }
       )
-      .then((res) => console.log(res))
+      .then((res) =>
+        dispatch(getUser([res.data.body.firstName, res.data.body.lastName]))
+      )
       .catch((err) => console.log(err));
   };
 

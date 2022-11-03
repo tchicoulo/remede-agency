@@ -19,16 +19,16 @@ export const usersSlice = createSlice({
       state.auth.isLoggedIn = !state.auth.isLoggedIn;
       state.auth.accessToken = action.payload[0];
       state.email = action.payload[1];
-      state.firstName = action.payload[2];
-      state.lastName = action.payload[3];
     },
-    // users/logoutUser
     logoutUser: (state) => {
       state = initialState();
       return state;
     },
+    getUser: (state, action) => {
+      state.firstName = action.payload[0];
+      state.lastName = action.payload[1];
+    },
 
-    //users/editUser
     editUser: (state, action) => {
       state.firstName = action.payload[0];
       state.lastName = action.payload[1];
@@ -37,6 +37,6 @@ export const usersSlice = createSlice({
   },
 });
 
-export const { loginUser, logoutUser, editUser } = usersSlice.actions;
+export const { loginUser, logoutUser, getUser, editUser } = usersSlice.actions;
 
 export default usersSlice.reducer;
