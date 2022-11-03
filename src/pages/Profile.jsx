@@ -18,6 +18,26 @@ const Profile = () => {
   const editLastName = useRef();
   const dispatch = useDispatch();
 
+  console.log(accessToken);
+
+  const getUserProfile = () => {
+    const headers = {
+      Authorization: `Bearer ${accessToken}`,
+    };
+    axios
+      .post(
+        "http://localhost:3001/api/v1/user/profile",
+        {},
+        {
+          headers: headers,
+        }
+      )
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
+
+  getUserProfile();
+
   const confirmEdit = () => {
     setEdit(true);
 
@@ -37,7 +57,6 @@ const Profile = () => {
       })
       .then(() => {
         if (data.firstName.length > 0 && data.lastName.length > 0) {
-          console.log("okok");
           dispatch(editUser([data.firstName, data.lastName]));
         } else {
           alert('Veuillez remplir correctement les champs "Prénom et "Nom"');

@@ -130,31 +130,47 @@ paths:
           type: string
           name: month
           description: Filter transactions by month
-          default: Mois en cours
-          enum:
-            - Mois en cours
-            - Janvier
-            - Février
-            - Mars
-            - Avril
-            - Mai
-            - Juin
-            - Juillet
-            - Aout
-            - Septembre
-            - Octobre
-            - Novembre
-            - Décembre
-        - in: query
-          name: id
-          type: integer
-          description: Id of the transaction
+          default: 1
           minimum: 1
+          maximum: 12
+        - in: query
+          name: year
+          type: integer
+          description: year of the transactions, e.g. 2022
       produces:
         - application/json
       responses:
         "200":
           description: transactions retrieved successully
+        "400":
+          description: Bad request
+        "401":
+          description: Action not authorized
+        "500":
+          description: Internal Server Error
+  /user/transactions/{id}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: User Transactions API
+      description: API for fetching id transaction
+      parameters:
+        - in: header
+          type: string
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+        - in: path
+          name: id
+          type: integer
+          required: true
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: transaction retrieved successully
         "400":
           description: Bad request
         "401":
@@ -168,7 +184,7 @@ paths:
       tags:
         - User Module
       summary: User transaction API
-      description: API for modifying a note in a transaction
+      description: API for adding,modifying, deleting a note in a transaction
       parameters:
         - in: path
           name: transactionId
@@ -260,3 +276,6 @@ definitions:
       note:
         type: string
         description: Note
+      category:
+        type: string
+        description: Category
