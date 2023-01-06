@@ -29,7 +29,7 @@ const Header = () => {
               to="/"
             >
               <i className="fa fa-sign-out" aria-hidden="true"></i>
-              Sign Out
+              <span className="sign-out">Sign Out</span>
             </NavLink>
           </div>
         ) : (

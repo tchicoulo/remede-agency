@@ -14,7 +14,6 @@ export const usersSlice = createSlice({
   name: "users",
   initialState: initialState(),
   reducers: {
-    //users/loginUser
     loginUser: (state, action) => {
       state.auth.isLoggedIn = !state.auth.isLoggedIn;
       state.auth.accessToken = action.payload[0];
@@ -32,7 +31,6 @@ export const usersSlice = createSlice({
     editUser: (state, action) => {
       state.firstName = action.payload[0];
       state.lastName = action.payload[1];
-      return state;
     },
   },
 });

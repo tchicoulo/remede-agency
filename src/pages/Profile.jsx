@@ -39,7 +39,7 @@ const Profile = () => {
 
   getUserProfile();
 
-  const confirmEdit = () => {
+  const confirmEdit = (e) => {
     setEdit(true);
 
     const headers = {
@@ -52,18 +52,19 @@ const Profile = () => {
       lastName: editLastName.current.value,
     };
 
-    axios
-      .put("http://localhost:3001/api/v1/user/profile", data, {
-        headers: headers,
-      })
-      .then(() => {
-        if (data.firstName.length > 0 && data.lastName.length > 0) {
+    if (data.firstName.length === 0 || data.lastName.length === 0) {
+      e.preventDefault();
+      alert('Veuillez remplir correctement les champs "Prénom et "Nom"');
+    } else {
+      axios
+        .put("http://localhost:3001/api/v1/user/profile", data, {
+          headers: headers,
+        })
+        .then(() => {
           dispatch(editUser([data.firstName, data.lastName]));
-        } else {
-          alert('Veuillez remplir correctement les champs "Prénom et "Nom"');
-        }
-      })
-      .catch((err) => console.log(err));
+        })
+        .catch((err) => console.log(err));
+    }
   };
 
   const cancelEdit = () => {
@@ -98,8 +99,8 @@ const Profile = () => {
               <div className="confirm-edit-area">
                 <button
                   className="save"
-                  onClick={() => {
-                    confirmEdit();
+                  onClick={(e) => {
+                    confirmEdit(e);
                   }}
                 >
                   Save
