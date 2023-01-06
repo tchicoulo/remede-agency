@@ -126,70 +126,59 @@ paths:
           name: Authorization
           description: Attach Bearer JWT token
           required: true
-        - in: query
-          type: string
-          name: month
-          description: Filter transactions by month
-          default: 1
-          minimum: 1
-          maximum: 12
-        - in: query
-          name: year
-          type: integer
-          description: year of the transactions, e.g. 2022
       produces:
         - application/json
       responses:
         "200":
           description: transactions retrieved successully
         "400":
-          description: Bad request
-        "401":
-          description: Action not authorized
+          description: Transactions not found
         "500":
           description: Internal Server Error
-  /user/transactions/{id}:
+  /user/transactions/filter:
     get:
       security:
         - Bearer: []
       tags:
         - User Module
-      summary: User Transactions API
-      description: API for fetching id transaction
+      summary: User Filter Transactions API
+      description: API for filtering all transactions
       parameters:
         - in: header
           type: string
           name: Authorization
           description: Attach Bearer JWT token
           required: true
-        - in: path
-          name: id
-          type: integer
+        - in: query
+          type: string
+          name: Category
+          description: Filter transactions
           required: true
+          default: All Categories
+          enum:
+            - All Categories
+            - Food
+            - Electronic
+            - Cash Games
+            - Holidays
       produces:
         - application/json
       responses:
         "200":
-          description: transaction retrieved successully
+          description: Transactions filtered successully
         "400":
-          description: Bad request
-        "401":
-          description: Action not authorized
+          description: Transactions not filtered
         "500":
           description: Internal Server Error
-  /user/transaction/{transactionId}:
+  /user/transaction:
     patch:
       security:
         - Bearer: []
       tags:
         - User Module
       summary: User transaction API
-      description: API for adding,modifying, deleting a note in a transaction
+      description: API for adding, modifying, deleting a note in a transaction
       parameters:
-        - in: path
-          name: transactionId
-          type: integer
-          required: true
         - in: header
           type: string
           name: Authorization
@@ -197,7 +186,7 @@ paths:
           required: true
         - in: body
           name: body
-          description: Modify a note in user transaction attributes
+          description: Post a note in user transaction attributes
           required: true
           schema:
             $ref: "#/definitions/UserTransaction"
@@ -205,17 +194,12 @@ paths:
         - application/json
       responses:
         "200":
-          description: Note deleted successfully
-        "201":
-          description: Note created successfully
-        "202":
-          description: Note modified successfully
+          description: Note posted successully
         "400":
-          description: Bad Request
-        "401":
-          description: Action not authorized
+          description: Invalid Fields
         "500":
           description: Internal Server Error
+
 securityDefinitions:
   Bearer:
     type: apiKey
@@ -276,6 +260,3 @@ definitions:
       note:
         type: string
         description: Note
-      category:
-        type: string
-        description: Category
