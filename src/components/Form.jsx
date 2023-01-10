@@ -22,13 +22,6 @@ const Form = () => {
       password: passwordInput.current.value,
     };
 
-    //Récupérer firstname lastname dans l'email
-    // let firstName = data.email.split("@")[0];
-    // let lastName = data.email.split("@")[1];
-    // lastName = lastName.split(".")[0];
-    // firstName = firstName.charAt(0).toUpperCase() + firstName.slice(1);
-    // lastName = lastName.charAt(0).toUpperCase() + lastName.slice(1);
-
     axios
       .post("http://localhost:3001/api/v1/user/login", data, {
         headers: headers,
