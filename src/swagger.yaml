@@ -119,7 +119,7 @@ paths:
       tags:
         - User Module
       summary: User Transactions API
-      description: API for fetching all transactions
+      description: API for fetching all transactions for the actual month
       parameters:
         - in: header
           type: string
