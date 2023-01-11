@@ -339,6 +339,33 @@ button {
   color: #fff;
 }
 
+.error {
+  margin-top: 150px;
+  font-size: 25px;
+}
+
+.error h1 {
+  font-size: 80px;
+}
+
+.error h2 {
+  color: rgb(62, 19, 19);
+  margin-bottom: 100px;
+}
+
+.error h3 {
+  color: grey;
+  font-size: 20px;
+  margin-bottom: 400px;
+  text-decoration: underline;
+}
+
+.error h3:hover {
+  color: rgb(0, 188, 119);
+  transform: scale(1.15);
+  transition: 0.3s;
+}
+
 @media (min-width: 720px) {
   .account {
     flex-direction: row;
