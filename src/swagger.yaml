@@ -294,6 +294,8 @@ definitions:
     properties:
       id:
         type: string
+      userId:
+        type: string
       date:
         type: string
         pattern: "yyyy-mm-dd"
