@@ -5,8 +5,16 @@ import Error from "./pages/Error";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import ProtectedRoutes from "./ProtectedRoutes";
+import { useEffect } from "react";
+import { checkAutoLogin } from "./services/AuthService";
+import { useDispatch } from "react-redux";
 
 const App = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    checkAutoLogin(dispatch);
+  }, [dispatch]);
+
   return (
     <BrowserRouter>
       <Routes>

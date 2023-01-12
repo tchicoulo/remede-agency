@@ -3,7 +3,12 @@ import { useRef } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { loginUser } from "../features/users.slice";
+import { isLogged, loginUser } from "../features/users.slice";
+import {
+  runLogOutTimer,
+  saveEmailInLocalStorage,
+  saveTokenInLocalStorage,
+} from "../services/AuthService";
 
 const Form = () => {
   let navigate = useNavigate();
@@ -28,7 +33,11 @@ const Form = () => {
       })
 
       .then((res) => {
+        saveTokenInLocalStorage(res.data.body.token);
+        saveEmailInLocalStorage(data.email);
+        runLogOutTimer(dispatch);
         dispatch(loginUser([res.data.body.token, data.email]));
+        dispatch(isLogged([true]));
         navigate("/profile");
       })
       .catch((err) => {

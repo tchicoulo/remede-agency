@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { logoutUser } from "../features/users.slice";
+import { isLogged, logoutUser } from "../features/users.slice";
 
 const Header = () => {
   let isConnected = useSelector((state) => state.user.auth.isLoggedIn);
@@ -25,7 +25,10 @@ const Header = () => {
             <span className="main-nav-user">{firstName}</span>
             <NavLink
               className="main-nav-item"
-              onClick={() => dispatch(logoutUser())}
+              onClick={() => {
+                localStorage.clear();
+                dispatch(logoutUser());
+              }}
               to="/"
             >
               <i className="fa fa-sign-out" aria-hidden="true"></i>

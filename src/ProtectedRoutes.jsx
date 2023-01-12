@@ -1,17 +1,17 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import Profile from "./pages/Profile";
 
 const ProtectedRoutes = () => {
   const useAuth = () => {
-    let isConnected = useSelector((state) => state.user.auth.isLoggedIn);
+    let isConnected = localStorage.getItem("token");
     const user = { loggedIn: isConnected };
     return user && user.loggedIn;
   };
 
   const isAuth = useAuth();
 
-  return isAuth ? <Outlet /> : <Navigate to="/" />;
+  return isAuth ? <Profile /> : <Navigate to="/" />;
 };
 
 export default ProtectedRoutes;

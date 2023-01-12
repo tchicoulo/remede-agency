@@ -13,7 +13,8 @@ import { getUser } from "../features/users.slice";
 const Profile = () => {
   const firstName = useSelector((state) => state.user.firstName);
   const lastName = useSelector((state) => state.user.lastName);
-  const accessToken = useSelector((state) => state.user.auth.accessToken);
+  const accessToken = JSON.parse(localStorage.getItem("token"));
+
   const [edit, setEdit] = useState(true);
   const editFirstName = useRef();
   const editLastName = useRef();
@@ -31,9 +32,14 @@ const Profile = () => {
           headers: headers,
         }
       )
-      .then((res) =>
-        dispatch(getUser([res.data.body.firstName, res.data.body.lastName]))
-      )
+      .then((res) => {
+        localStorage.setItem(
+          "firstName",
+          JSON.stringify(res.data.body.firstName)
+        );
+        localStorage.setItem("lastName", res.data.body.lastName);
+        dispatch(getUser([res.data.body.firstName, res.data.body.lastName]));
+      })
       .catch((err) => console.log(err));
   };
 
